@@ -1,0 +1,61 @@
+version: "3.6"
+
+services:
+  # MySQL 5.7
+  mysql57:
+    image: mysql:5.7.32
+    container_name: MySQL57
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3357:3306"
+    env_file:
+      - ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL57_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL57_USER_NAME}
+      - MYSQL_USER=${MYSQL57_USER_NAME}
+      - MYSQL_PASSWORD=${MYSQL57_USER_PASSWORD}
+      - DEBUG=${MYSQL57_DEBUG}
+    volumes:
+      - ./db/mysql57/data:/var/lib/mysql
+      - ./db/mysql57/init:/docker-entrypoint-initdb.d
+  # MySQL 8 (:latest)
+  mysql8:
+    image: mysql:latest,
+    container_name: MySQL8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3308:3306"
+    env_file:
+      - ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL8_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL8_USER_NAME}
+      - MYSQL_USER=${MYSQL8_USER_NAME}
+      - MYSQL_PASSWORD=${MYSQL8_USER_PASSWORD}
+      - DEBUG=${MYSQL8_DEBUG}
+    volumes:
+      - ./db/mysql57/data:/var/lib/mysql
+      - ./db/mysql57/init:/docker-entrypoint-initdb.d
+
+      #- postgres-volume:/var/lib/postgresql/data
+# env_file:
+#     - ./.env
+
+#     volumes:
+#   - type: volume
+#     source: mydata
+#     target: /data
+#     volume:
+#       nocopy: true
+#   - type: bind
+#     source: ./static
+#     target: /opt/app/static
+
+# adminer:
+#     image: adminer
+#     restart: always
+#     ports:
+#         - 8080:8080
