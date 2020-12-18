@@ -14,3 +14,7 @@ asdf
 ### Troubleshooting ENVs
 
 - run `docker-compose config` to ensure your ENVs are pulling through
+
+## TODO
+
+ALL THE THINGS ... this readme sucks
