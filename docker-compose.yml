@@ -5,7 +5,7 @@ services:
   mysql57:
     image: mysql:5.7.32
     container_name: MySQL57
-    command: --default-authentication-plugin=mysql_native_password --port=3357
+    command: --port=3357 --default-authentication-plugin=mysql_native_password #--innodb-use-native-aio=0
     restart: always
     ports:
       - "3357:3357"
@@ -25,7 +25,7 @@ services:
   mysql8:
     image: mysql:latest
     container_name: MySQL8
-    command: --default-authentication-plugin=mysql_native_password --port=3308
+    command: --default-authentication-plugin=mysql_native_password --port=3308 #--innodb-use-native-aio=0
     restart: always
     ports:
       - "3308:3308"
@@ -41,23 +41,16 @@ services:
     volumes:
       - ./db/mysql8/init:/docker-entrypoint-initdb.d
       - ./db/mysql8/data:/var/lib/mysql
-
-      #- postgres-volume:/var/lib/postgresql/data
-# env_file:
-#     - ./.env
-
-#     volumes:
-#   - type: volume
-#     source: mydata
-#     target: /data
-#     volume:
-#       nocopy: true
-#   - type: bind
-#     source: ./static
-#     target: /opt/app/static
-
-# adminer:
-#     image: adminer
-#     restart: always
-#     ports:
-#         - 8080:8080
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    ports:
+      - "5413:5432"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./db/postgres/init:/docker-entrypoint-initdb.d
+      - ./db/postgres/data:/var/lib/postgresql/data/pgdata
