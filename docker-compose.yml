@@ -1,27 +1,27 @@
 version: "3.6"
 
-volumes:
-  mysql57data:
-    driver: local
-    name: mysql57_data
-    driver_opts:
-      type: none
-      device: ./db/mysql57/data
-      o: bind
-  mysql8data:
-    driver: local
-    name: mysql8_data
-    driver_opts:
-      type: none
-      device: ./db/mysql8/data
-      o: bind
-  postgresdata:
-    driver: local
-    name: postgres_data
-    driver_opts:
-      type: none
-      device: ./db/postgres/data
-      o: bind
+# volumes:
+#   mysql57data:
+#     driver: local
+#     name: mysql57_data
+#     driver_opts:
+#       type: none
+#       device: ./db/mysql57/data
+#       o: bind
+#   mysql8data:
+#     driver: local
+#     name: mysql8_data
+#     driver_opts:
+#       type: none
+#       device: ./db/mysql8/data
+#       o: bind
+#   postgresdata:
+#     driver: local
+#     name: postgres_data
+#     driver_opts:
+#       type: none
+#       device: ./db/postgres/data
+#       o: bind
 
 services:
   # MySQL 5.7
@@ -43,7 +43,7 @@ services:
       - DEBUG=${MYSQL57_DEBUG}
     volumes:
       - ./db/mysql57/init:/docker-entrypoint-initdb.d
-      - mysql57data:/var/lib/mysql
+      - ./db/mysql57/data:/var/lib/mysql
   # MySQL 8
   mysql8:
     image: mysql:latest
@@ -63,7 +63,7 @@ services:
       - DEBUG=${MYSQL8_DEBUG}
     volumes:
       - ./db/mysql8/init:/docker-entrypoint-initdb.d
-      - mysql8data:/var/lib/mysql
+      - ./db/mysql8/data:/var/lib/mysql
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -78,4 +78,4 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - ./db/postgres/init:/docker-entrypoint-initdb.d
-      - postgresdata:/var/lib/postgresql/data/pgdata
+      - ./db/postgres/data:/var/lib/postgresql/data/pgdata
