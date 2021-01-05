@@ -1,28 +1,5 @@
 version: "3.6"
 
-# volumes:
-#   mysql57data:
-#     driver: local
-#     name: mysql57_data
-#     driver_opts:
-#       type: none
-#       device: ./db/mysql57/data
-#       o: bind
-#   mysql8data:
-#     driver: local
-#     name: mysql8_data
-#     driver_opts:
-#       type: none
-#       device: ./db/mysql8/data
-#       o: bind
-#   postgresdata:
-#     driver: local
-#     name: postgres_data
-#     driver_opts:
-#       type: none
-#       device: ./db/postgres/data
-#       o: bind
-
 services:
   # MySQL 5.7
   mysql57:
@@ -44,11 +21,12 @@ services:
     volumes:
       - ./db/mysql57/init:/docker-entrypoint-initdb.d
       - ./db/mysql57/data:/var/lib/mysql
+  #     # - ./db/mysql57/my.conf:/etc/my.conf
   # MySQL 8
   mysql8:
     image: mysql:latest
     container_name: MySQL8
-    command: --default-authentication-plugin=mysql_native_password --port=3308 #--innodb-use-native-aio=0
+    command: --port=3308 #--innodb-use-native-aio=0
     restart: always
     ports:
       - "3308:3308"
@@ -64,6 +42,7 @@ services:
     volumes:
       - ./db/mysql8/init:/docker-entrypoint-initdb.d
       - ./db/mysql8/data:/var/lib/mysql
+      # - ./db/mysql57/my.conf:/etc/my.conf
   postgres:
     image: postgres:latest
     container_name: postgres

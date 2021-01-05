@@ -9,12 +9,16 @@ This file will then be used by docker in pair with `docker-entrypoint-initdb.d`
 
 ## Initializers
 
-asdf
+These files will be used when running setup.sh to create the `db` scaffold.
+Each db will have:
+
+- data (where the DB and data actually live)
+- init
+
+`init` is mapped to the `docker-entrypoint-initdb.d` volume.
+This will run any setup SQL you wish. For now, we doubly ensure the ENV user has Super Admin Root like privs.
 
 ### Troubleshooting ENVs
 
 - run `docker-compose config` to ensure your ENVs are pulling through
-
-## TODO
-
-ALL THE THINGS ... this readme sucks
+- run `docker-compose logs --tail` for anything else
