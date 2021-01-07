@@ -1,60 +1,78 @@
 version: "3.6"
 
 services:
+  mysql56:
+    image: mysql:5.6.50
+    container_name: MySQL56
+    command: --port=3356 --default-authentication-plugin=mysql_native_password #--innodb-use-native-aio=0
+    restart: always
+    ports:
+      - "3356:3356"
+    env_file:
+      - ./.env
+    environment:
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_ALLOW_EMPTY_PASSWORD=${MYSQL56_ALLOW_EMPTY_PASSWORD}
+      - DEBUG=${MYSQL56_DEBUG}
+    volumes:
+      - ./db/mysql56/init:/docker-entrypoint-initdb.d
+      - ./db/mysql56/data:/var/lib/mysql
+      # - ./db/mysql56/my.conf:/etc/my.conf
+
   # MySQL 5.7
-  mysql57:
-    image: mysql:5.7.32
-    container_name: MySQL57
-    command: --port=3357 --default-authentication-plugin=mysql_native_password #--innodb-use-native-aio=0
-    restart: always
-    ports:
-      - "3357:3357"
-    env_file:
-      - ./.env
-    environment:
-      - MYSQL_ROOT_HOST=%
-      - MYSQL_ROOT_PASSWORD=${MYSQL57_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL57_USER_NAME}
-      - MYSQL_USER=${MYSQL57_USER_NAME}
-      - MYSQL_PASSWORD=${MYSQL57_USER_PASSWORD}
-      - DEBUG=${MYSQL57_DEBUG}
-    volumes:
-      - ./db/mysql57/init:/docker-entrypoint-initdb.d
-      - ./db/mysql57/data:/var/lib/mysql
+  # mysql57:
+  #   image: mysql:5.7.32
+  #   container_name: MySQL57
+  #   command: --port=3357 --default-authentication-plugin=mysql_native_password #--innodb-use-native-aio=0
+  #   restart: always
+  #   ports:
+  #     - "3357:3357"
+  #   env_file:
+  #     - ./.env
+  #   environment:
+  #     - MYSQL_ROOT_HOST=%
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL57_ROOT_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL57_USER_NAME}
+  #     - MYSQL_USER=${MYSQL57_USER_NAME}
+  #     - MYSQL_PASSWORD=${MYSQL57_USER_PASSWORD}
+  #     - DEBUG=${MYSQL57_DEBUG}
+  #   volumes:
+  #     - ./db/mysql57/init:/docker-entrypoint-initdb.d
+  #     - ./db/mysql57/data:/var/lib/mysql
+  # #     # - ./db/mysql57/my.conf:/etc/my.conf
+  # # MySQL 8
+  # mysql8:
+  #   image: mysql:latest
+  #   container_name: MySQL8
+  #   command: --port=3308 #--innodb-use-native-aio=0
+  #   restart: always
+  #   ports:
+  #     - "3308:3308"
+  #   env_file:
+  #     - ./.env
+  #   environment:
+  #     - MYSQL_ROOT_HOST=%
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL8_ROOT_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL8_USER_NAME}
+  #     - MYSQL_USER=${MYSQL8_USER_NAME}
+  #     - MYSQL_PASSWORD=${MYSQL8_USER_PASSWORD}
+  #     - DEBUG=${MYSQL8_DEBUG}
+  #   volumes:
+  #     - ./db/mysql8/init:/docker-entrypoint-initdb.d
+  #     - ./db/mysql8/data:/var/lib/mysql
   #     # - ./db/mysql57/my.conf:/etc/my.conf
-  # MySQL 8
-  mysql8:
-    image: mysql:latest
-    container_name: MySQL8
-    command: --port=3308 #--innodb-use-native-aio=0
-    restart: always
-    ports:
-      - "3308:3308"
-    env_file:
-      - ./.env
-    environment:
-      - MYSQL_ROOT_HOST=%
-      - MYSQL_ROOT_PASSWORD=${MYSQL8_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL8_USER_NAME}
-      - MYSQL_USER=${MYSQL8_USER_NAME}
-      - MYSQL_PASSWORD=${MYSQL8_USER_PASSWORD}
-      - DEBUG=${MYSQL8_DEBUG}
-    volumes:
-      - ./db/mysql8/init:/docker-entrypoint-initdb.d
-      - ./db/mysql8/data:/var/lib/mysql
-      # - ./db/mysql57/my.conf:/etc/my.conf
-  postgres:
-    image: postgres:latest
-    container_name: postgres
-    restart: always
-    env_file:
-      - ./.env
-    ports:
-      - "5413:5432"
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - ./db/postgres/init:/docker-entrypoint-initdb.d
-      - ./db/postgres/data:/var/lib/postgresql/data/pgdata
+  # postgres:
+  #   image: postgres:latest
+  #   container_name: postgres
+  #   restart: always
+  #   env_file:
+  #     - ./.env
+  #   ports:
+  #     - "5413:5432"
+  #   environment:
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - POSTGRES_USER=${POSTGRES_USER}
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #   volumes:
+  #     - ./db/postgres/init:/docker-entrypoint-initdb.d
+  #     - ./db/postgres/data:/var/lib/postgresql/data/pgdata
