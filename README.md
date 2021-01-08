@@ -8,8 +8,8 @@ and as you could imagine, MySQL@5.6 and MySQL8 do not play nice together.
 **Why can't we just host these in the cloud somewhere?!**
 Absolutely, this is not to discourage other alternatives.
 Slap that MySQL instance up there and drop some ENVs.
-At some point however, you'll want more direct access to logging, and those _free_ services and hosts stop being free.
-And what if you need to modify come `my.cnf` files? While services have options, and there are definitely pro's and con's to both, having more direct control over what is going in our dev setup can be ideal when onboarding and debugging various applications.
+At some point, however, you'll want more direct access to logging, and those _free_ services and hosts stop being free.
+And what if you need to modify some `my.cnf` files? While services have options, and there are definitely pro's and con's to both, having more direct control over what is going in our dev setup can be ideal when onboarding and debugging various applications.
 
 **_insert docker_**
 
@@ -22,7 +22,7 @@ If we need to tweak a config, it's as easy as stopping the running container, ed
 
 ## Setup
 
-Note: If you are familiar with docker and want a single instance of a DB feel free to take a quick peak at [docker-compose.yml](./docker-compose.yml) and copy over what you need. This setup will enable you to setup and run, MySQL 5.6, 5.7, 8, and postgres either as a suite or as individual services (recommended).
+Note: If you are familiar with docker and want a single instance of a DB feel free to take a quick peek at [docker-compose.yml](./docker-compose.yml) and copy over what you need. This setup will enable you to set up and run, MySQL 5.6, 5.7, 8, and Postgres either as a suite or as individual services (recommended).
 
 We are leveraging [Docker/MySQL](https://hub.docker.com/_/mysql) and [Docker/Postgres](https://hub.docker.com/_/postgres) docs here.
 
@@ -36,11 +36,10 @@ We are leveraging [Docker/MySQL](https://hub.docker.com/_/mysql) and [Docker/Pos
 
 **Let's take a look at what happened:**
 You should now see a `db` folder.
-The initializers have created a folder PER db inside, each with a `data` folder, `init` folder, and for MySQL a `my.conf` file.
-If you take a peak at the [db/mysql8/init](./db/mysql8/init) you'll notice the intializer also added a `01.sql` file.
+The initializers have created a folder PER DB inside, each with a `data` folder, `init` folder, and for MySQL a `my.conf` file.
+If you take a peek at the [db/mysql8/init](./db/mysql8/init) you'll notice the initializer also added a `01.sql` file.
 This file will then be used by docker in pair with `docker-entrypoint-initdb.d` to run extra commands on setup.
-In our case we've took the liberty to use our ENVs to ensure a super user was created with all permissions and a respected DB.
-While the ENVs provided to [Docker/MySQL](https://hub.docker.com/_/mysql) already do this, I've kept this file as an example for any other seeds and sql you may need to run.
+In our case, we've taken the liberty to use our ENVs to ensure a superuser was created with all permissions and a respected DB. While the ENVs provided to [Docker/MySQL](https://hub.docker.com/_/mysql) already do this, I've kept this file as an example for any other seeds and SQL you may need to run.
 
 Note: For MySQL 5.6, I've set an example setup of Root with NO password. If you need something different be sure to tweak the initializer, ENVs, and compose, respectfully.
 
@@ -85,7 +84,7 @@ MySQL 8 is _ready for connections_ on _port: 3308_
 ## Connecting via DB Viewer
 
 This is no different than running a DB locally.
-Your config will still look similar to below with localhost (or 127.0.0.1), port, username, and password.
+Your config will still look similar to the below image with localhost (or 127.0.0.1), port, username, and password.
 
 Config:
 
