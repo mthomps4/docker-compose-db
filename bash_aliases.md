@@ -8,7 +8,7 @@ export MYSQL_ROOT_PASSWORD=password
 ```
 
 **Base Command**
-docker-compose -f <path_to_file> <command> <service_name>
+docker-compose -f \<path_to_file\> \<command\> \<service_name\>
 
 Examples:
 > Assumes this repo is cloned to `~/Databases`

@@ -11,7 +11,7 @@ Slap that MySQL instance up there and drop some ENVs.
 At some point however, you'll want more direct access to logging, and those _free_ services and hosts stop being free.
 And what if you need to modify come `my.cnf` files? While services have options, and there are definitely pro's and con's to both, having more direct control over what is going in our dev setup can be ideal when onboarding and debugging various applications.
 
-_insert docker_
+**_insert docker_**
 
 ## The Goal
 
@@ -20,7 +20,7 @@ Each instance is self contained to it's container with a persisted volume and co
 This also lends itself to expansion with other DB tooling, postgres, redis, and memcache for example.
 If we need to tweak a config, it's as easy as stopping the running container, editing/creating a file and restarting.
 
-# Setup
+## Setup
 
 Note: If you are familiar with docker and want a single instance of a DB feel free to take a quick peak at [docker-compose.yml](./docker-compose.yml) and copy over what you need. This setup will enable you to setup and run, MySQL 5.6, 5.7, 8, and postgres either as a suite or as individual services (recommended).
 
@@ -44,7 +44,7 @@ While the ENVs provided to [Docker/MySQL](https://hub.docker.com/_/mysql) alread
 
 Note: For MySQL 5.6, I've set an example setup of Root with NO password. If you need something different be sure to tweak the initializer, ENVs, and compose, respectfully.
 
-### Ways to run this thing
+## Ways to run this thing
 
 To pull, build, and link all the things with docker lets run from our project directory.
 
@@ -69,7 +69,7 @@ docker-compose logs -f
 
 You should see something similar to:
 
-```
+```sh
 MySQL8      | 2021-01-08T17:37:28.188065Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.22'  socket: '/var/run/mysqld/mysqld.sock'  port: 3308  MySQL Community Server - GPL.
 
 MySQL56 exited with code 0
@@ -82,7 +82,7 @@ MySQL 8 is _ready for connections_ on _port: 3308_
 
 > Side Note: Currently each DB port is hardcoded in the docker-compose file. If another port is needed, swap these out in the command: and ports: section, I'll look to make a quick follow with ENVs for these as well.
 
-### Connecting via DB Viewer
+## Connecting via DB Viewer
 
 This is no different than running a DB locally.
 Your config will still look similar to below with localhost (or 127.0.0.1), port, username, and password.
