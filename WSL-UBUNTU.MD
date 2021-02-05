@@ -38,3 +38,9 @@ set localhostForwarding=true
 https://github.com/microsoft/WSL/discussions/2471
 https://dev.to/grawl/working-with-docker-and-other-unix-things-on-windows-like-on-macos-or-linux-4o6p
 https://docs.microsoft.com/en-us/windows/wsl/wsl-config
+
+
+TODO!!! When running with docker-desktop -- did I miss something
+MySQL8      | 2021-02-05T03:06:23.962125Z 1 [ERROR] [MY-012574] [InnoDB] Unable to lock ./ibdata1 error: 11
+MySQL57     | 2021-02-05T03:06:24.120434Z 0 [ERROR] InnoDB: Unable to lock ./ibdata1 error: 11
+MySQL57     | 2021-02-05T03:06:24.120524Z 0 [Note] InnoDB: Check that you do not already have another mysqld process using the same InnoDB data or log files.
