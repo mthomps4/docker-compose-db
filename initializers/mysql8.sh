@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # Called from root setup.sh
-source .env
+# source .env
 
 # MySQL 8.x (:latest)
 mkdir -p db/mysql8/init

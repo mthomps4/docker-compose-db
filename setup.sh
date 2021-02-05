@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/bash
 
-source .env
+. .env
 
 # File Permissions
 chmod -R a+x ./initializers/
