@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Called from root setup.sh
-# source .env
+. ./.env
 
 mkdir -p db/mysql56/init
 mkdir -p db/mysql56/data

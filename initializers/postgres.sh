@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Called from root setup.sh
-# . .env
+. ./.env
 
 mkdir -p db/postgres/data
 mkdir -p db/postgres/init
